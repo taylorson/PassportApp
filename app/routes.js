@@ -1,6 +1,8 @@
+var taskDB = require("./models/task");
+
 // app/routes.js
 module.exports = function(app, passport) {
-    
+   
         // =====================================
         // HOME PAGE (with login links) ========
         // =====================================
@@ -59,6 +61,16 @@ module.exports = function(app, passport) {
             req.logout();
             res.redirect('/');
         });
+
+        
+        app.get('/list',isLoggedIn,function(req,res){
+            res.render('list.ejs',{
+                user : req.user,
+                tasks : taskDB
+                .findOne({ userID: req.user._id })
+            })
+        });
+
     };
     
     // route middleware to make sure a user is logged in
