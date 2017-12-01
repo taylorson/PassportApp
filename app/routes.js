@@ -77,7 +77,7 @@ module.exports = function(app, passport) {
                 tasks : taskDB
                 .findOne({ taskMaster: req.user._id })
             })
-        });
+        });  
     };
     
     // route middleware to make sure a user is logged in

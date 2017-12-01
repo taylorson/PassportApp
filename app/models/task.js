@@ -8,7 +8,11 @@ var taskSchema = mongoose.Schema({
         name            :   String,
         description     :   String,
         taskMaster      :   String,
-        userID          :   String     
+        userID          :   String,
+        completeBy      :   Date,
+        isComplete      :   {Type : Boolean, default : 0},
+        isConfirmed     :   Boolean
+
     }  
 });
 
