@@ -71,6 +71,13 @@ module.exports = function(app, passport) {
             })
         });
 
+        app.get('/masterList',isLoggedIn,function(req,res){
+            res.render('masterList.ejs',{
+                user : req.user,
+                tasks : taskDB
+                .findOne({ taskMaster: req.user._id })
+            })
+        });
     };
     
     // route middleware to make sure a user is logged in

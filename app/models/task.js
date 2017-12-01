@@ -8,16 +8,12 @@ var taskSchema = mongoose.Schema({
         name            :   String,
         description     :   String,
         taskMaster      :   String,
-        taskMasterEmail :   Date,
         userID          :   String     
     }  
 });
 
 // methods ======================
 
-taskSchema.methods.findByUserID = function(userID){
-
-}
 
 
 // create the model for users and expose it to our app
