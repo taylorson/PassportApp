@@ -11,7 +11,7 @@ var taskSchema = mongoose.Schema({
         userID          :   String,
         completeBy      :   Date,
         isComplete      :   {Type : Boolean, default : 0},
-        isConfirmed     :   Boolean
+        isConfirmed     :   {Type : Boolean, default : 0},
 
     }  
 });
