@@ -63,14 +63,14 @@ module.exports = function(app, passport) {
             res.redirect('/');
         });
 
-        //GETS THE LIST OF TASKS BY CURRENTLY LOGGED IN USER
+        //GETS THE LIST OF TASKS BY CURRENTLY LOGGED IN USER. THIS CURRENTLY WORKS!
         app.get('/list',isLoggedIn,function(req,res){
-            res.render('List.js',{
-                user : req.user,//passes in the currently logged in user to the page (because I copied this from profile)
-                tasks : Task//passes in the list of tasks to the page
-                .find({ userID: req.user._id },function(err,res){
-                    console.log(res)
-                })
+            Task
+            .find({ userID: req.user._id },function(err,data){
+                console.log(data);
+                res.render('list.ejs',{
+                    tasks : data
+                });
             })
         });
         //CREATE A NEW TASK BASED OFF OF A FORM SUBMISSION
@@ -105,7 +105,7 @@ module.exports = function(app, passport) {
         }); 
 
         //CREATE THE FORM ROUTE HERE
-        app.get('/',isLoggedIn,function(req,res){//UPDATE THIS TO THE APPROPRIATE ROUTE TO CREATE A NEW ONE
+        app.get('/TaskForm',isLoggedIn,function(req,res){//UPDATE THIS TO THE APPROPRIATE ROUTE TO CREATE A NEW ONE
             res.render('TaskForm.js',{
                 user : req.user,
                 users :  User.find()//UPDATE THIS FIND TO WHERE THE objectId is *not* the currently logged in user

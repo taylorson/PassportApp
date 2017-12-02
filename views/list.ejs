@@ -22,17 +22,13 @@
         <!-- LIST -->
         <div class="col-sm-6">
             <div class="well">
-                <%= tasks %>
-                <!--
-                <h3><span class="fa fa-user"></span> Local</h3>
-
-                    <p>
-                        <strong>id</strong>: <%= user._id %><br>
-                        <strong>email</strong>: <%= user.local.email %><br>
-                        <strong>password</strong>: <%= user.local.password %>
-                    </p>
-                -->
-
+                <ul>
+               <!--LOOPS OVER THE TASK ARRAY BEING PASSED IN-->
+               <% for (i=0;i<tasks.length;i++){%>
+                    <li>NAME : <%= tasks[i]['name'] %></li>
+                <%}%>
+                </ul>
+               
 
 
             </div>
