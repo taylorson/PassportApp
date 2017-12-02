@@ -3,17 +3,14 @@
 var mongoose = require('mongoose');
 
 // define the schema for our user model
-var taskSchema = mongoose.Schema({
-    task            : {
-        name            :   String,
-        description     :   String,
-        taskMaster      :   String,
-        userID          :   String,
-        completeBy      :   Date,
-        isComplete      :   {Type : Boolean, default : 0},
-        isConfirmed     :   {Type : Boolean, default : 0},
-
-    }  
+var task = mongoose.Schema({
+    name            :   String,
+    description     :   String,
+    taskMaster      :   String,
+    userID          :   String,
+    completeBy      :   Date,
+    isComplete      :   {Type : Boolean, default : 0},
+    isConfirmed     :   {Type : Boolean, default : 0}
 });
 
 // methods ======================
@@ -21,4 +18,4 @@ var taskSchema = mongoose.Schema({
 
 
 // create the model for users and expose it to our app
-module.exports = mongoose.model('Task', taskSchema);
+module.exports = mongoose.model('Task', task);
