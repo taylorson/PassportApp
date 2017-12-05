@@ -84,18 +84,17 @@ module.exports = function(app, passport) {
 
         //switch this to do the create and then redirect to list.js
         //this probably doesn't needd a render
-        app.get('/task',isLoggedIn,function(req,res){
-            res.render('list.ejs',{
+        app.post('/task',isLoggedIn,function(req,res){
+            res.render('List.js',{
                 user : req.user,
-                tasks : Task
-                
+                tasks : Task     
                 .create({
                     //REPLACE THIS STUFF WITH THE REQUEST SCOPE FROM THE FORM THAT KATE IS SO KINDLY POSTING TO US LAVEN HOYVEN 
-                    name            :   'test task 123',
-                    description     :   'test description2',
-                    taskMaster      :   '',//SELECT TASKMASTER FIELD FROM KATE'S FORM
-                    userID          :   '5a22f1604319ac15a435d15f', //REPLACE WITH req.user._id
-                    completeBy      :   '01/01/2018'
+                    name            :   req.body.name,
+                    description     :   req.body.description,
+                    taskMaster      :   req.body.taskMaster,//'',//SELECT TASKMASTER FIELD FROM KATE'S FORM
+                    userID          :   req.user._id,//'5a22f1604319ac15a435d15f', //REPLACE WITH req.user._id
+                    completeBy      :   req.body.completeBy//'01/01/2018'
                 }).then(
                     function(){
                     console.log('SENDING TASK CREATION EMAIL');
