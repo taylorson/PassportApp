@@ -1,6 +1,13 @@
 var Task = require("./models/task");
 var User = require("./models/user");
-
+var send = require('gmail-send')({
+    user: 'nicks.list.reminder@gmail.com', 
+    pass: '',
+    //to:   'daniel.seiser@gmail.com',
+    subject: "Nick's List Notification"
+    //text:    'gmail-send example 1'        //PLAIN TEXT
+    //html:    '<b>You have been selected</b>'            // HTML 
+  });
 // app/routes.js
 module.exports = function(app, passport) {
    
@@ -77,19 +84,29 @@ module.exports = function(app, passport) {
 
         //switch this to do the create and then redirect to list.js
         //this probably doesn't needd a render
-        app.post('/task',isLoggedIn,function(req,res){
-            res.render('List.js',{
+        app.get('/task',isLoggedIn,function(req,res){
+            res.render('list.ejs',{
                 user : req.user,
                 tasks : Task
                 
                 .create({
                     //REPLACE THIS STUFF WITH THE REQUEST SCOPE FROM THE FORM THAT KATE IS SO KINDLY POSTING TO US LAVEN HOYVEN 
-                    name            :   'test task',
-                    description     :   'test description',
+                    name            :   'test task 123',
+                    description     :   'test description2',
                     taskMaster      :   '',//SELECT TASKMASTER FIELD FROM KATE'S FORM
                     userID          :   '5a22f1604319ac15a435d15f', //REPLACE WITH req.user._id
                     completeBy      :   '01/01/2018'
-                }).then(console.log('inserted'))//CHANGE THIS TO REDIRECT TO LISTLAVEN MCFLAYVENHOYGLE
+                }).then(
+                    function(){
+                    console.log('SENDING TASK CREATION EMAIL');
+                   //Require module and setting default options 
+                    send({
+                        to : 'daniel.seiser@gmail.com',
+                        subject : "Nick's List Notification - You've been made a taskmaster!",
+                        html : "<b>You have been selected as a Nick's List Taskmaster!</b><br>This means you're in charge of making sure a friend completes his or her task.<br><a href='http://127.0.0.1:8080/'>Click Here to Login!</a>"
+                    });
+                    console.log('EMAIL SENT');
+                })//CHANGE THIS TO REDIRECT TO LISTLAVEN MCFLAYVENHOYGLE
             })
         });
         
