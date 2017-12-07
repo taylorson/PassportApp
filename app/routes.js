@@ -58,7 +58,9 @@ module.exports = function(app, passport) {
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //!!!!!!!!!!!!!!!!!!     END PASSPORT LOGIN AND SIGNUP HANDLERS       !!!!!!!!!!!!!!
-        //!!!!!!!!!!!!!!!!!!!!!!!!     BEGIN TASK MANAGEMENT     !!!!!!!!!!!!!!!!!!!!!!!!!!!    
+        //!!!!!!!!!!!!!!!!!!!!!!!!     BEGIN TASK MANAGEMENT     !!!!!!!!!!!!!!!!!!!!!!!!!!! 
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   
 
         //LIST OF TASKS BY USER
         app.get('/list',isLoggedIn,function(req,res){
@@ -83,11 +85,12 @@ module.exports = function(app, passport) {
                 tasks : Task     
                 .create({
                      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                     //REPLACE THIS STUFF WITH THE REQUEST SCOPE FROM THE FORM THAT KATE IS BEING POSTED
+                     //REPLACE THIS STUFF WITH THE REQUEST SCOPE FROM THE FORM THAT IS  POSTED
+                     //req.body might not be the correct scope, so double check this
                      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     name            :   'Dan Seiser',  //req.body.name
                     description     :   'TEST DESCRIPTION', //req.body.description
-                     taskMaster      :   '',//req.body.taskMaster
+                    taskMaster      :   '',//req.body.taskMaster
                     userID          :   '5a22f1604319ac15a435d15f', // req.user._id
                     userEmail       :   'daniel.seiser@gmail.com',//req.user.email (I think)
                     completeBy      :   '01/01/2018' //req.body.completeBy
@@ -124,6 +127,20 @@ module.exports = function(app, passport) {
                 });
             })          
         })
+
+        app.put('/task/:id/:action',isLoggedIn,function(req,res){
+            //if action is 'complete'
+                //NICE TO HAVE: Check to make sure req.user._id is equal to the creator/owner of the task
+                //update task to complete
+                //query and render LIST 
+            //elseif action is 'confirm completion'
+                //NICE TO HAVE: Check to make sure req.user._id is equal to the taskMaster id
+                //update task to confirmed
+                //query and render MASTERLIST
+            //endif
+            
+            })
+
     };
 
 //ROUTE MIDDLEWARE TO ENSURE USER IS LOGGED IN
