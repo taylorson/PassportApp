@@ -8,6 +8,7 @@ var task = mongoose.Schema({
     description     :   String,
     taskMaster      :   String,
     userID          :   String,
+    userEmail       :   String,
     completeBy      :   Date,
     isComplete      :   {Type : Boolean, default : 0},
     isConfirmed     :   {Type : Boolean, default : 0}

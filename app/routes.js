@@ -84,23 +84,24 @@ module.exports = function(app, passport) {
 
         //switch this to do the create and then redirect to list.js
         //this probably doesn't needd a render
-        app.post('/task',isLoggedIn,function(req,res){
+        app.get('/task',isLoggedIn,function(req,res){
             res.render('List.js',{
                 user : req.user,
                 tasks : Task     
                 .create({
-                    //REPLACE THIS STUFF WITH THE REQUEST SCOPE FROM THE FORM THAT KATE IS SO KINDLY POSTING TO US LAVEN HOYVEN 
-                    name            :   req.body.name,
-                    description     :   req.body.description,
-                    taskMaster      :   req.body.taskMaster,//'',//SELECT TASKMASTER FIELD FROM KATE'S FORM
-                    userID          :   req.user._id,//'5a22f1604319ac15a435d15f', //REPLACE WITH req.user._id
-                    completeBy      :   req.body.completeBy//'01/01/2018'
+                     //REPLACE THIS STUFF WITH THE REQUEST SCOPE FROM THE FORM THAT KATE IS SO KINDLY POSTING TO US LAVEN HOYVEN 
+                    name            :   'Dan Seiser',  //req.body.name
+                    description     :   'TEST DESCRIPTION', //req.body.description
+                    taskMaster      :   '',//req.body.taskMaster
+                    userID          :   '5a22f1604319ac15a435d15f', // req.user._id
+                    userEmail       :   'daniel.seiser@gmail.com',//req.user.email (I think)
+                    completeBy      :   '01/01/2018' //req.body.completeBy
                 }).then(
                     function(){
                     console.log('SENDING TASK CREATION EMAIL');
                    //Require module and setting default options 
                     send({
-                        to : 'daniel.seiser@gmail.com',
+                        to : req.body.taskMaster,//'daniel.seiser@gmail.com',
                         subject : "Nick's List Notification - You've been made a taskmaster!",
                         html : "<b>You have been selected as a Nick's List Taskmaster!</b><br>This means you're in charge of making sure a friend completes his or her task.<br><a href='http://127.0.0.1:8080/'>Click Here to Login!</a>"
                     });
@@ -109,16 +110,15 @@ module.exports = function(app, passport) {
             })
         });
         
-        //RENDER THE LIST OF TASKS THAT THE CURRENTLY LOGGED IN USER IS MASTER OF
         app.get('/masterList',isLoggedIn,function(req,res){
-            res.render('masterList.ejs',{
-                user : req.user,
-                tasks : taskDB
-                //THIS IS WRONG
-                .find({ taskMaster: req.user._id })
-                //FIND WHERE THE taskMaster ARRAY FIELD CONTAINS THE CURRENTLY LOGGED IN USER'S ID (req.user._id)
+            Task
+            .find({ taskMaster: req.user._id },function(err,data){
+                console.log(data);
+                res.render('masterList.ejs',{
+                    tasks : data
+                });
             })
-        }); 
+        });
 
         //CREATE THE FORM ROUTE HERE
         app.get('/TaskForm',isLoggedIn,function(req,res){//UPDATE THIS TO THE APPROPRIATE ROUTE TO CREATE A NEW ONE
