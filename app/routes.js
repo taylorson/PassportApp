@@ -107,6 +107,7 @@ module.exports = function(app, passport) {
                 })
             })
         });
+
         //MASTER LIST
         app.get('/masterList',isLoggedIn,function(req,res){
             Task
@@ -128,7 +129,7 @@ module.exports = function(app, passport) {
             })          
         })
 
-        app.put('/task/:id/:action',isLoggedIn,function(req,res){
+        app.put('/task',isLoggedIn,function(req,res){
             //if action is 'complete'
                 //NICE TO HAVE: Check to make sure req.user._id is equal to the creator/owner of the task
                 //update task to complete
