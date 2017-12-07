@@ -97,12 +97,20 @@ module.exports = function(app, passport) {
                 }).then(
                     function(){
                     console.log('SENDING TASK CREATION EMAIL');
+                    
                     //SEND EMAIL
-                    send({
-                        to : 'daniel.seiser@gmail.com',
-                        subject : "Nick's List Notification - You've been made a taskmaster!",
-                        html : "<b>You have been selected as a Nick's List Taskmaster!</b><br>This means you're in charge of making sure a friend completes his or her task.<br><a href='http://127.0.0.1:8080/'>Click Here to Login!</a>"
-                    });
+                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    //!!!!!   WORK THE KINKS OUT IN THIS BLOCK OF CODE   !!!!
+                    //!!!!!         SHOULD SEND EMAIL TO TASKMASTER      !!!!
+                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    
+                    //User.find({ _id: req.body.taskMaster},function(err,data){    //THIS SHOULD SEARCH FOR THE TASKMASTER
+                        send({
+                            to : 'daniel.seiser@gmail.com',///REPLACE WITH data.local.email (RESULT FROM TASKMASTER SEARCH)
+                            subject : "Nick's List Notification - You've been made a taskmaster!",
+                            html : "<b>You have been selected as a Nick's List Taskmaster!</b><br>This means you're in charge of making sure a friend completes his or her task.<br><a href='http://127.0.0.1:8080/'>Click Here to Login!</a>"
+                        });
+                    //}
                     console.log('EMAIL SENT');
                 })
             })
