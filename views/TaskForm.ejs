@@ -13,7 +13,7 @@
 <div class="container">
 
     <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span>Tasks you are the master of</h1>
+        <h1><span class="fa fa-anchor"></span> Your To-dos</h1>
         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
     </div>
 
@@ -22,12 +22,14 @@
         <!-- LIST -->
         <div class="col-sm-6">
             <div class="well">
-                <ul>
-               <!--LOOPS OVER THE TASK ARRAY BEING PASSED IN-->
-               <% for (i=0;i<tasks.length;i++){%>
-                    <li>NAME : <%= tasks[i]['name'] %>, EMAIL : <%= tasks[i]['email'] %></li>
-                <%}%>
-                </ul>
+                
+                    POTENTIAL TASK MASTERS
+                    <select name="taskMaster">
+                        <% for (i=0;i<users.length;i++){%>
+                            <option value="<%= users[i]['_id'] %>"><%= users[i]['local']['email'] %></option>
+                        <%}%>
+                                
+                    </select>
             </div>
         </div>
 
