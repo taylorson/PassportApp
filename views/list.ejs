@@ -74,22 +74,33 @@
         <div class="col-sm-6">
             <div class="well" style="color: gray; margin: 50px; border-radius: 10px; background-color: #EAF6F6; font-family: 'Poppins', sans-serif;">
                 <% if(tasks.length === 0) {%>
-                    You have no tasks, bitch
+                    <div class="row">
+                        <div class="col-sm-12">
+                             You have no tasks, bitch                                
+                        </div>
+                    </div>
                 <% } %>
-                <ul>
+
                <!--LOOPS OVER THE TASK ARRAY BEING PASSED IN-->
                <% for (i=0;i<tasks.length;i++){%>
-                    <li>NAME : <%= tasks[i]['name'] %></li>
+                    <div class="row">
+                        <div class="col-sm-10">
+                                NAME : <%= tasks[i]['name'] %>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-default btn-sm completionButton" 
+                                style='color: white; background-color: #F76B8A;'
+                                id="completeButton_<%= tasks[i]['_id'] %>">
+                                Task Completed</button>
+                        </div>
+                    </div>
                 <%}%>
-                </ul>
                 
                 <div class="row">
                     <div class="col-sm-6">
                         <button onclick="document.location.href='/taskform'" class="btn btn-default btn-sm" style='color: white; background-color: #F76B8A;'>Click here to add a new task</button>
                     </div>
-                    <div class="col-sm-6">
-                            <button onclick="document.location.href='/taskform'" class="btn btn-default btn-sm" style='color: white; background-color: #F76B8A;'>Task Completed</button>
-                    </div>
+ 
                 </div>
 
             </div>
@@ -98,5 +109,21 @@
     </div>
 
 </div>
+
+<form id="completionForm" action="/taskActor" method="post">
+    <input type="hidden" name="action" id="action" value="complete">
+    <input type="hidden" name="id" id="id" value="">
+</form>
+<script>
+    $(document).ready(function(){
+        $('.completionButton').click(function(){
+            console.log(this.id)
+            thisID = this.id.split('_')[1];
+            $('#id').val(thisID);
+            $('#completionForm').submit();                     
+        })
+    })
+</script>
+
 </body>
 </html>

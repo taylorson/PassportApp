@@ -127,27 +127,20 @@ module.exports = function(app, passport) {
             })
         });
 
-
-
-        app.post('/task',isLoggedIn,function(req,res){
-
-            //if action is 'complete'
-                //NICE TO HAVE: Check to make sure req.user._id is equal to the creator/owner of the task
-                //update task to complete
-                //query and render LIST 
-            //elseif action is 'confirm completion'
-                //NICE TO HAVE: Check to make sure req.user._id is equal to the taskMaster id
-                //update task to confirmed
-                //query and render MASTERLIST
-            //endif
+        app.post('/taskActor',isLoggedIn,function(req,res){
             
             if(req.body.action == 'complete'){
+                //UPDATE COMPLETE STATUS
+                //REDIRECT TO LIST
+                res.redirect('/list')
                 
-            }else{
-
+            }else if(req.body.action == 'confirm'){
+                //UPDATE CONFIRM STATUS
+                //REDIRECT TO MASTERLIST
+                res.redirect('/masterlist')                
             }
 
-            })
+        })
 
     };
 
