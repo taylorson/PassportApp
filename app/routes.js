@@ -128,20 +128,23 @@ module.exports = function(app, passport) {
         });
 
         app.post('/taskActor',isLoggedIn,function(req,res){
-            
             if(req.body.action == 'complete'){
+                    task.update,
+                    tasks : data,
+                };
                 //UPDATE COMPLETE STATUS
                 //REDIRECT TO LIST
-                res.redirect('/list')
+                res.redirect('list.ejs"')
                 
             }else if(req.body.action == 'confirm'){
+                task.update,
+                task : data,
+
+                };
                 //UPDATE CONFIRM STATUS
                 //REDIRECT TO MASTERLIST
                 res.redirect('/masterlist')                
-            }
-
         })
-
     };
 
 //ROUTE MIDDLEWARE TO ENSURE USER IS LOGGED IN
