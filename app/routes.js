@@ -69,7 +69,7 @@ module.exports = function(app, passport) {
         app.get('/list',isLoggedIn,function(req,res){
             Task
             .find({ userID: req.user._id },function(err,data){
-                console.log(data);
+                //console.log(data);
                 res.render('list.ejs',{
                     tasks : data
                 });
@@ -80,7 +80,7 @@ module.exports = function(app, passport) {
         //NEW TASK FORM (pass in all users other than self for drop down)
         app.get('/TaskForm',isLoggedIn,function(req,res){
             User.find({ _id: {'$ne' : req.user._id}},function(err,data){
-                console.log(data);
+                //console.log(data);
                 res.render('TaskForm.ejs',{
                     users : data
                 });
@@ -88,63 +88,37 @@ module.exports = function(app, passport) {
         })
 
 
-        //CREATE A NEW TASK BASED OFF OF A FORM SUBMISSION
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //!!!!!!!!!!!!!!!!!!!          !!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //!!!!!!!!!!!!!!!!!!!!!!!!          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        
-        app.post('/task',isLoggedIn,function(req,res){
-            Task     
-                .create({
-                    name            :  req.body.name,
-                    description     :  req.body.description,
-                    taskMaster      :  req.body.taskMaster,
-                    userID          :  req.user._id,
-                    userEmail       :  req.user.email,
-                    completeBy      :  req.body.completeBy
-                }).then(
-                    function(){
-                    console.log('SENDING TASK CREATION EMAIL');
-                    
-                    //SEND EMAIL
-                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    //!!!!!   WORK THE KINKS OUT IN THIS BLOCK OF CODE   !!!!
-                    //!!!!!         SHOULD SEND EMAIL TO TASKMASTER      !!!!
-                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    
-                    User.find({ _id: req.body.taskMaster},function(err,data){
-                        console.log(data)
-                        //THIS SHOULD SEARCH FOR THE TASKMASTER
-                        /*send({
-                            to : data.local.email,
+        //CREATE A NEW TASK BASED OFF OF A FORM SUBMISSION        
+        app.post('/task',isLoggedIn,function(req,res){//HANDLE POST REQUEST
+            Task.create({  //CREATE TASK
+                name            :  req.body.name,
+                description     :  req.body.description,
+                taskMaster      :  req.body.taskMaster,
+                userID          :  req.user._id,
+                userEmail       :  req.user.email,
+                completeBy      :  req.body.completeBy
+            }).then(
+                function(req){//PASS IN THE REQUEST
+                    User.find({_id : req.taskMaster},function(err,userData){
+                        console.log('sending email to ' + userData[0].local.email);//GET TASKMASTER EMAIL
+                        send({//SEND EMAIL
+                            to : userData[0].local.email,
                             subject : "Nick's List Notification - You've been made a taskmaster!",
                             html : "<b>You have been selected as a Nick's List Taskmaster!</b><br>This means you're in charge of making sure a friend completes his or her task.<br><a href='http://127.0.0.1:8080/'>Click Here to Login!</a>"
-                        });
-                        */
-                    }).then(
-                        function(){
-                            console.log('EMAIL SENT');
-                            res.render('list.ejs',{
-                                user : req.user,
-                                tasks : Task
-                                .find({ userID: req.user._id },function(err,data){
-                                    console.log(data);
-                                    res.render('list.ejs',{
-                                        tasks : data
-                                    });
-                                })
-                            })
-                    
+                        })                   
+                    }).then(function(){
+                        console.log('email sent')
+                        res.redirect('/list');//REDIECT TO LIST
+                    })
                 })
-            })
-        });
-
+            });
+            
+       
         //MASTER LIST
         app.get('/masterList',isLoggedIn,function(req,res){
             Task
             .find({ taskMaster: req.user._id },function(err,data){
-                console.log(data);
+                //console.log(data);
                 res.render('masterList.ejs',{
                     tasks : data
                 });
