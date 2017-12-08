@@ -22,14 +22,21 @@
         <!-- LIST -->
         <div class="col-sm-6">
             <div class="well">
+                <% if(tasks.length === 0) {%>
+                    You have no tasks, bitch
+                <% } %>
                 <ul>
                <!--LOOPS OVER THE TASK ARRAY BEING PASSED IN-->
                <% for (i=0;i<tasks.length;i++){%>
                     <li>NAME : <%= tasks[i]['name'] %></li>
                 <%}%>
                 </ul>
-               
-
+                
+                <div class="row">
+                    <div class="col-sm-6">
+                        <button onclick="document.location.href='/taskform'">Click here to add a new task</button>
+                    </div>
+                </div>
 
             </div>
         </div>
