@@ -1,16 +1,67 @@
 <!-- views/profile.ejs -->
 <!doctype html>
 <html>
-<head>
-    <title>Nick's List</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker|Poppins:200,400,700,900" rel="stylesheet">    
-    <style>
-
-    </style>
-</head>
+        <head>
+                <title>Nick's List</title>
+                <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+                <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+                <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css?family=Permanent+Marker|Poppins:200,400,700,900" rel="stylesheet">    
+                <style>
+            
+                </style>
+            </head>
 <body>
+        <nav class="navbar navbar-default" style="background-color: #EAF6F6;">
+                <div class="container-fluid">
+                  <!-- Brand and toggle get grouped for better mobile display -->
+                  <div class="navbar-header">
+                        <a class="navbar-brand" href="#" style="color: #F76B8A; font-family: 'Permanent Marker', cursive; font-size: 36pt;">NicksList</a>
+                      </div>
+                  <!-- Collect the nav links, forms, and other content for toggling -->
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown">
+                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+                                  <ul class="dropdown-menu" style='background-color: #66BFBF'>
+                                    <li><a href="/profile" style='color: white; text-align:center'>Settings</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#" style='color: white; text-align:center'>My Lazy Friends</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#" style='color: white; text-align:center'>Network</a></li>
+                                  </ul>
+                                </li>
+                                <a href="/logout" class="btn btn-default btn-sm" style='margin: 10px'>Logout</a>
+                              </ul>  
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Task Masters <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">TM Name</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">TM Name</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">TM Name</a></li>
+                            </ul>
+                        </li>
+                    </ul>   
+                    <ul class="nav navbar-nav navbar-right">
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Tasks <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="/TaskForm">Make New Task</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="/list">Current Tasks</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="#">Completions and Failures</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+              </nav>
 <div class="container">
 
     <div class="page-header text-center">
