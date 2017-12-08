@@ -96,11 +96,13 @@ module.exports = function(app, passport) {
                 taskMaster      :  req.body.taskMaster,
                 userID          :  req.user._id,
                 userEmail       :  req.user.email,
-                completeBy      :  req.body.completeBy
+                completeBy      :  req.body.completeBy,
+                isComplete      :  false,
+                isConfirmed     :  false
             }).then(
                 function(req){//PASS IN THE REQUEST
-                    User.find({_id : req.taskMaster},function(err,userData){
-                        console.log('sending email to ' + userData[0].local.email);//GET TASKMASTER EMAIL
+                    User.find({_id : req.taskMaster},function(err,userData){//GET TASKMASTER EMAIL BASED ON FORM SUBMISSION
+                        console.log('sending email to ' + userData[0].local.email);
                         send({//SEND EMAIL
                             to : userData[0].local.email,
                             subject : "Nick's List Notification - You've been made a taskmaster!",
@@ -127,7 +129,8 @@ module.exports = function(app, passport) {
 
 
 
-        app.put('/task',isLoggedIn,function(req,res){
+        app.post('/task',isLoggedIn,function(req,res){
+
             //if action is 'complete'
                 //NICE TO HAVE: Check to make sure req.user._id is equal to the creator/owner of the task
                 //update task to complete
@@ -138,6 +141,12 @@ module.exports = function(app, passport) {
                 //query and render MASTERLIST
             //endif
             
+            if(req.body.action == 'complete'){
+                
+            }else{
+
+            }
+
             })
 
     };

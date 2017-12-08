@@ -10,8 +10,8 @@ var task = mongoose.Schema({
     userID          :   String,
     userEmail       :   String,
     completeBy      :   Date,
-    isComplete      :   {Type : Boolean, default : 0},
-    isConfirmed     :   {Type : Boolean, default : 0}
+    isComplete      :   Boolean,
+    isConfirmed     :   Boolean
 });
 
 // methods ======================
