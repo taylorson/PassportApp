@@ -65,28 +65,29 @@
 <div class="container">
 
     <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Your To-dos</h1>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+        <h1>Create New Task</h1>
     </div>
 
     <div class="row">
 
         <!-- LIST -->
         <div class="col-sm-6">
-            <div class="well">
+            <div class="well" style="color: gray; margin: 50px; border-radius: 10px; background-color: #EAF6F6; font-family: 'Poppins', sans-serif;">
                     <form name="taskForm" action="/task" method="post">
-                    TASK NAME: <input type="text" name="name" id="name"><br>
-                    TASK DESCRIPTION: <textarea name="description" id="description"></textarea> 
+                    Task Name: <input type="text" name="name" id="name" style= 'margin-bottom: 20px; width: 100%;'>
                     <br>
-                    COMPLETE BY DATE: <input id="completeBy" type="date" name="completeBy"><Br>
-                    TASK MASTER:
-                    <select name="taskMaster" id="taskMaster">
+                    Task Description: <textarea name="description" id="description" style= 'margin-bottom: 20px; width: 100%;'></textarea> 
+                    <br>
+                    Completion Date: <input id="completeBy" type="date" name="completeBy" style= 'margin-bottom: 20px'>
+                    <br>
+                    Task Master:
+                    <select name="taskMaster" id="taskMaster" style= 'margin-bottom: 20px; width: 100%;'>
                         <% for (i=0;i<users.length;i++){%>
                             <option value="<%= users[i]['_id'] %>"><%= users[i]['local']['email'] %></option>
                         <%}%>
                     </select>
                     <br>
-                    <input type="submit" value="Submit that shit, yo!">
+                    <input type="submit" value="Submit that shit, yo!" style='color: white; background-color: #F76B8A; margin-top: 20px'>
                     </form>
             </div>
         </div>
